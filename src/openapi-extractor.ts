@@ -1,16 +1,24 @@
-import { match } from "path-to-regexp";
 import type { MatchFunction } from "path-to-regexp";
+import { match } from "path-to-regexp";
 import type { OpenAPIV3 } from "./types/index.js";
 
 export interface OpenApiRequestMetadata {
   schema: OpenAPIV3.OperationObject;
   params: Record<string, string>;
+  paths: {
+    original: string; // OpenAPI path with {param} syntax
+    converted: string; // Express-style path with :param syntax
+  };
 }
 
 interface PathPattern {
   matcher: MatchFunction<object>;
   methods: { [method: string]: string | undefined };
   pathMetadata: { [method: string]: OpenAPIV3.OperationObject };
+  paths: {
+    original: string;
+    converted: string;
+  };
 }
 
 export class OpenApiExtractor {
@@ -62,6 +70,10 @@ export class OpenApiExtractor {
         matcher,
         methods: methodMap,
         pathMetadata,
+        paths: {
+          original: path,
+          converted: expressPath,
+        },
       });
     }
 
@@ -72,7 +84,7 @@ export class OpenApiExtractor {
     path: string,
     method: string
   ): OpenApiRequestMetadata | null {
-    for (const { matcher, pathMetadata } of this.pathPatterns) {
+    for (const { matcher, pathMetadata, paths } of this.pathPatterns) {
       const matchResult = matcher(path);
       if (matchResult) {
         const schema = pathMetadata[method];
@@ -80,6 +92,7 @@ export class OpenApiExtractor {
           return {
             schema,
             params: matchResult.params as Record<string, string>,
+            paths,
           };
         }
       }
