@@ -5,11 +5,11 @@ A lightweight TypeScript library for extracting OpenAPI metadata from HTTP reque
 ## Features
 
 - 🚀 Load OpenAPI specs from URL or object
-- 🔍 Extract OpenAPI metadata and path parameters from requests
+- 🔍 Extract OpenAPI metadata and path parameters
 - ✨ Match request paths against OpenAPI paths
-- 📘 TypeScript support with full type definitions
+- 📘 Full TypeScript support
 - 🪶 Zero dependencies (except path-to-regexp)
-- 🔌 Framework agnostic - works with Express, Hono, and more!
+- 🔌 Framework agnostic design
 
 ## Installation
 
@@ -105,6 +105,14 @@ interface OpenApiRequestMetadata {
 }
 ```
 
+## Roadmap
+
+Check out our [roadmap](./ROADMAP.md) for upcoming features:
+
+- OpenAPI 2.0 & 3.1.x support
+- Prebuilt framework middlewares
+- Better error messages and debugging
+
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
@@ -112,7 +120,3 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## License
 
 MIT © [ahmedrowaihi](https://github.com/ahmedrowaihi)
-
-```
-open http://localhost:3000
-```
