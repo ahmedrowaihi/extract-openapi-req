@@ -1,6 +1,6 @@
 {
   "name": "extract-openapi-req",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Extract OpenAPI metadata from HTTP requests",
   "type": "module",
   "main": "./dist/index.cjs",
