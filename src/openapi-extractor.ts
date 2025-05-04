@@ -14,8 +14,8 @@ interface PathPattern {
 }
 
 export class OpenApiExtractor {
-  private pathPatterns: PathPattern[];
-  private spec: any;
+  pathPatterns: PathPattern[];
+  spec: any;
 
   constructor() {
     this.pathPatterns = [];

@@ -19,7 +19,7 @@
 
 ### Prebuilt Framework Specific Middlewares
 
-- [ ] Hono middleware
+- [x] Hono middleware
 - [ ] Fastify middleware
 - [ ] Express middleware
 - [ ] NestJS middleware

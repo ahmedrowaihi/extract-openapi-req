@@ -43,6 +43,33 @@ if (metadata) {
 
 ### Framework Integration Examples
 
+#### Hono (Built-in Middleware)
+
+```typescript
+import { Hono } from "hono";
+import { OpenApiExtractor } from "extract-openapi-req";
+import {
+  createHonoMiddleware,
+  HonoOpenApiVariables,
+} from "extract-openapi-req/frameworks/hono";
+
+const app = new Hono<{ Variables: HonoOpenApiVariables }>();
+const extractor = new OpenApiExtractor();
+
+// Load OpenAPI spec
+await extractor.loadSpec(openApiSpec);
+
+// Add the middleware
+const middleware = createHonoMiddleware(extractor);
+app.use("*", middleware);
+
+// Access OpenAPI metadata in your handlers
+app.get("/users/:id", (c) => {
+  const metadata = c.get("openapi");
+  // Use the metadata...
+});
+```
+
 #### Express
 
 ```typescript
@@ -62,25 +89,6 @@ app.use((req, res, next) => {
 });
 ```
 
-#### Hono
-
-```typescript
-import { Hono } from "hono";
-import { OpenApiExtractor } from "extract-openapi-req";
-
-const app = new Hono();
-const extractor = new OpenApiExtractor();
-await extractor.loadSpec("./openapi.json");
-
-app.use("*", async (c, next) => {
-  const metadata = extractor.extract(c.req.path, c.req.method);
-  if (metadata) {
-    c.set("openapi", metadata);
-  }
-  await next();
-});
-```
-
 ## API Reference
 
 ### `OpenApiExtractor`
@@ -96,6 +104,13 @@ app.use("*", async (c, next) => {
 - `extract(path: string, method: string): OpenApiRequestMetadata | null`  
   Extract OpenAPI metadata from a request path and method.
 
+### Framework Middlewares
+
+#### Hono
+
+- `createHonoMiddleware(extractor: OpenApiExtractor): MiddlewareHandler`  
+  Creates a Hono middleware that automatically extracts and attaches OpenAPI metadata to the request context.
+
 #### Types
 
 ```typescript
@@ -103,6 +118,10 @@ interface OpenApiRequestMetadata {
   schema: OpenAPIV3.OperationObject; // Full OpenAPI operation object
   params: Record<string, string>; // Extracted path parameters
 }
+
+type HonoOpenApiVariables = {
+  openapi: OpenApiRequestMetadata;
+};
 ```
 
 ## Roadmap
@@ -110,8 +129,9 @@ interface OpenApiRequestMetadata {
 Check out our [roadmap](./ROADMAP.md) for upcoming features:
 
 - OpenAPI 2.0 & 3.1.x support
-- Prebuilt framework middlewares
+- More prebuilt framework middlewares (Express, Fastify, etc.)
 - Better error messages and debugging
+- Request/Response validation
 
 ## Contributing
 

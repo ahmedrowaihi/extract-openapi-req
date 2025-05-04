@@ -3,6 +3,7 @@
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/index.ts",
+    "dev:middleware": "tsx watch src/with-middleware.ts",
     "build": "tsc",
     "start": "node dist/index.js"
   },

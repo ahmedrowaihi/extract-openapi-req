@@ -11,6 +11,11 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
+    },
+    "./frameworks/hono": {
+      "types": "./dist/frameworks/hono.d.ts",
+      "import": "./dist/frameworks/hono.mjs",
+      "require": "./dist/frameworks/hono.cjs"
     }
   },
   "files": [
@@ -46,9 +51,14 @@
   "dependencies": {
     "path-to-regexp": "^6.2.1"
   },
+  "peerDependencies": {
+    "hono": "^4.7.8"
+  },
   "devDependencies": {
     "@types/node": "^20.11.17",
+    "hono": "^4.7.8",
     "rimraf": "^5.0.5",
+    "tsx": "^4.19.4",
     "typescript": "^5.3.3",
     "unbuild": "^2.0.0",
     "vitest": "^1.2.2"
