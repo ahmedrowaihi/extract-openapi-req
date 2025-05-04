@@ -1,0 +1,59 @@
+{
+  "name": "extract-openapi-req",
+  "version": "1.0.1",
+  "description": "Extract OpenAPI metadata from HTTP requests",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "unbuild",
+    "clean": "rimraf dist",
+    "prepublishOnly": "npm run clean && npm run build",
+    "test": "vitest",
+    "dev": "npm run build && cd examples/hono && npm run dev"
+  },
+  "keywords": [
+    "openapi",
+    "swagger",
+    "request",
+    "metadata",
+    "extract",
+    "path-matching",
+    "hono",
+    "middleware"
+  ],
+  "author": "ahmedrowaihi",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ahmedrowaihi/extract-openapi-req.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ahmedrowaihi/extract-openapi-req/issues"
+  },
+  "homepage": "https://github.com/ahmedrowaihi/extract-openapi-req#readme",
+  "dependencies": {
+    "path-to-regexp": "^6.2.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.17",
+    "rimraf": "^5.0.5",
+    "typescript": "^5.3.3",
+    "unbuild": "^2.0.0",
+    "vitest": "^1.2.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
